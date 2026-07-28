@@ -53,9 +53,16 @@
     font-family:'Trebuchet MS', sans-serif;
     font-size:0.85em;
     color:var(--copper-dark);
-    margin-bottom:20px;
+    margin-bottom:6px;
     letter-spacing:1px;
     text-transform:uppercase;
+  }
+  .hint{
+    text-align:center;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:0.8em;
+    color:#8a7a5f;
+    margin-bottom:22px;
   }
   .controls{
     max-width:900px;
@@ -102,7 +109,7 @@
   /* Capsule = bottle cap with crimped edge illusion */
   .cap-circle{
     width:100px; height:100px;
-    margin:0 auto 14px;
+    margin:0 auto 10px;
     border-radius:50%;
     position:relative;
     background:
@@ -117,17 +124,31 @@
     display:flex;
     align-items:center;
     justify-content:center;
+    cursor:pointer;
+    overflow:hidden;
+  }
+  .cap-circle:hover{ box-shadow:
+      inset 0 0 0 8px var(--card),
+      inset 0 0 0 9px var(--copper),
+      0 2px 4px rgba(0,0,0,0.15);
+  }
+  .cap-circle img{
+    width:84px; height:84px;
+    border-radius:50%;
+    object-fit:cover;
   }
   .cap-inner{
     width:64px; height:64px;
     border-radius:50%;
-    background:var(--cap-mid, #e8dcc4);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:0.65em;
+    font-size:0.62em;
+    line-height:1.2;
     color:#7a6c52;
     font-family:'Trebuchet MS', sans-serif;
+    text-align:center;
+    padding:4px;
   }
   .brand{ font-weight:bold; font-size:1.22em; color:var(--malt); }
   .variant{ font-size:0.88em; color:var(--copper-dark); font-weight:bold; margin:4px 0 8px; }
@@ -144,6 +165,18 @@
   }
   .rare{ background:#f0c239; color:#5c3d00; font-weight:bold; }
   .vintage{ background:var(--hop); color:white; }
+  .remove-photo{
+    display:block;
+    margin:8px auto 0;
+    background:none;
+    border:none;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:0.72em;
+    color:#a35c3a;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:2px;
+  }
   .empty{
     text-align:center;
     color:#8a7a5f;
@@ -160,6 +193,7 @@
 </header>
 
 <div class="stats" id="statsLine"></div>
+<div class="hint">📷 Clique sur une capsule pour ajouter ou remplacer sa photo (prise directement avec l'appareil photo sur mobile)</div>
 
 <div class="controls">
   <input type="text" id="searchInput" placeholder="Rechercher marque, brasserie, variante...">
@@ -183,6 +217,8 @@
 
 <div class="grid" id="capsuleGrid"></div>
 <div class="empty" id="emptyMsg" style="display:none;">Aucune capsule ne correspond à ta recherche.</div>
+
+<input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none">
 
 <script>
 // =====================================================================
@@ -253,13 +289,34 @@ const capsules = [
 { marque:"Silenrieux Sara Blonde", variante:"Capsule dorée", brasserie:"Brasserie de Silenrieux", pays:"Belgique", annee:"Récente", statut:"standard" },
 { marque:"Brugse Zot Blond", variante:"Capsule fou de Bruges", brasserie:"Brouwerij De Halve Maan", pays:"Belgique", annee:"Récente", statut:"standard" },
 { marque:"Straffe Hendrik Triple", variante:"Capsule dorée", brasserie:"Brouwerij De Halve Maan", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Straffe Hendrik Quadrupel", variante:"Capsule brune foncée", brasserie:"Brouwerij De Halve Maan", pays:"Belgique", annee:"Récente", statut:"rare" },
 { marque:"Judas", variante:"Capsule dorée forte", brasserie:"Brouwerij Alken-Maes", pays:"Belgique", annee:"Récente", statut:"standard" },
 { marque:"Ginder Ale", variante:"Capsule vintage", brasserie:"Brouwerij Alken", pays:"Belgique", annee:"Années 70", statut:"vintage" },
 { marque:"Vieux Temps", variante:"Capsule brune vintage", brasserie:"Brasserie Piedboeuf", pays:"Belgique", annee:"Années 80", statut:"vintage" },
+{ marque:"St. Bernardus Abt 12", variante:"Capsule brune", brasserie:"Brouwerij St. Bernardus", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"St. Bernardus Prior 8", variante:"Capsule brune claire", brasserie:"Brouwerij St. Bernardus", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Rodenbach Klassiek", variante:"Capsule rouge-brune", brasserie:"Brouwerij Rodenbach", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Rodenbach Grand Cru", variante:"Capsule dorée", brasserie:"Brouwerij Rodenbach", pays:"Belgique", annee:"Récente", statut:"rare" },
+{ marque:"Liefmans Goudenband", variante:"Capsule dorée", brasserie:"Brouwerij Liefmans", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Liefmans Kriek", variante:"Capsule rouge fruitée", brasserie:"Brouwerij Liefmans", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Gouden Carolus Classic", variante:"Capsule brune", brasserie:"Het Anker", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Gouden Carolus Tripel", variante:"Capsule dorée", brasserie:"Het Anker", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Saison Dupont", variante:"Capsule blanche", brasserie:"Brasserie Dupont", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Fantôme Saison", variante:"Capsule fantôme", brasserie:"Brasserie Fantôme", pays:"Belgique", annee:"Récente", statut:"rare" },
+{ marque:"Blanche de Namur", variante:"Capsule blanche", brasserie:"Brasserie du Bocq", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Silly Saison", variante:"Capsule dorée", brasserie:"Brasserie de Silly", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Primus", variante:"Capsule dorée", brasserie:"Brouwerij Haacht", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Ciney Blonde", variante:"Capsule dorée", brasserie:"Brasserie du Bocq", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Poperings Hommelbier", variante:"Capsule houblon", brasserie:"Brouwerij Van Eecke", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Manneken Brussel Blond", variante:"Capsule bruxelloise", brasserie:"Brasserie Manneken", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Abbaye des Rocs Brune", variante:"Capsule brune", brasserie:"Brasserie de l'Abbaye des Rocs", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Postel Dubbel", variante:"Capsule brune", brasserie:"Abdij Postel", pays:"Belgique", annee:"Récente", statut:"standard" },
+{ marque:"Petrus Oud Bruin", variante:"Capsule brune acidulée", brasserie:"Brouwerij Bavik", pays:"Belgique", annee:"Récente", statut:"standard" },
 
 /* ============================= FRANCE ============================= */
 { marque:"Meteor Pils", variante:"Vert sapin", brasserie:"Brasserie Meteor", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Meteor", variante:"Édition 375 ans", brasserie:"Brasserie Meteor", pays:"France", annee:"2015", statut:"rare" },
+{ marque:"Meteor Grande Réserve", variante:"Capsule dorée", brasserie:"Brasserie Meteor", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"3 Monts", variante:"Classique dorée", brasserie:"Brasserie de Saint-Sylvestre", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Goudale", variante:"Personnage historique", brasserie:"Brasserie Goudale", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Pelforth Brune", variante:"Pélican vintage", brasserie:"Heineken France", pays:"France", annee:"Années 90", statut:"vintage" },
@@ -283,6 +340,7 @@ const capsules = [
 { marque:"Grain d'Orge", variante:"Capsule dorée forte", brasserie:"Brasserie Gayant", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Bière du Démon", variante:"Capsule diable", brasserie:"Brasserie Gayant", pays:"France", annee:"Récente", statut:"rare" },
 { marque:"Cuvée des Jonquilles", variante:"Édition printemps", brasserie:"Brasserie Castelain", pays:"France", annee:"Récente", statut:"rare" },
+{ marque:"Cuvée de Noël", variante:"Édition hiver", brasserie:"Brasserie Castelain", pays:"France", annee:"Récente", statut:"rare" },
 { marque:"Angelus", variante:"Capsule ambrée", brasserie:"Brasserie Castelain", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Belzébuth", variante:"Capsule rouge et noire", brasserie:"Brasserie Gayant", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"La Cagole", variante:"Capsule marseillaise", brasserie:"Brasserie La Cagole", pays:"France", annee:"Récente", statut:"standard" },
@@ -291,6 +349,17 @@ const capsules = [
 { marque:"Britt Blanche", variante:"Capsule blanche bretonne", brasserie:"Brasserie Lancelot", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Telenn Du", variante:"Bière de sarrasin", brasserie:"Brasserie Lancelot", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Duchesse Anne", variante:"Capsule bretonne", brasserie:"Brasserie Lancelot", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Sant Erwann", variante:"Capsule blanche bretonne", brasserie:"Brasserie de Bretagne", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Deck & Donohue IPA", variante:"Capsule craft parisienne", brasserie:"Brasserie Deck & Donohue", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"La Débauche Belphégor", variante:"Capsule craft", brasserie:"Brasserie La Débauche", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Blanche du Mont Blanc", variante:"Capsule montagnarde", brasserie:"Brasserie du Mont Blanc", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Étoile du Nord", variante:"Bière de garde", brasserie:"Brasserie Thiriez", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Bière des Templiers", variante:"Capsule dorée", brasserie:"Brasserie Ambrée (Aveyron)", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Lutèce Blonde", variante:"Capsule parisienne", brasserie:"Brasserie Lutèce", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Parisis Ambrée", variante:"Capsule francilienne", brasserie:"Brasserie Parisis", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Vézelay Blonde", variante:"Capsule bourguignonne", brasserie:"Brasserie de Vézelay", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"Ninkasi Blonde", variante:"Capsule lyonnaise", brasserie:"Brasserie Ninkasi", pays:"France", annee:"Récente", statut:"standard" },
+{ marque:"La Mandrin", variante:"Capsule savoyarde", brasserie:"Brasserie du Mont Salève", pays:"France", annee:"Récente", statut:"standard" },
 { marque:"Desperados", variante:"Capsule tequila", brasserie:"Fischer / Heineken France", pays:"France", annee:"Récente", statut:"standard" }
 ];
 // =====================================================================
@@ -302,6 +371,9 @@ const searchInput = document.getElementById('searchInput');
 const countryFilter = document.getElementById('countryFilter');
 const statusFilter = document.getElementById('statusFilter');
 const sortFilter = document.getElementById('sortFilter');
+const photoInput = document.getElementById('photoInput');
+
+let currentEditKey = null;
 
 // Palette de teintes pour varier l'aspect des capsules selon la marque
 const paletteSet = [
@@ -317,6 +389,37 @@ function hashStr(s){
   for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) >>> 0; }
   return h;
 }
+function capsuleKey(cap){
+  return 'capsulePhoto::' + cap.marque + '::' + cap.variante;
+}
+function getPhoto(cap){
+  try{ return localStorage.getItem(capsuleKey(cap)); }
+  catch(e){ return null; }
+}
+function savePhoto(key, dataUrl){
+  try{ localStorage.setItem(key, dataUrl); }
+  catch(e){ alert("Impossible d'enregistrer la photo : mémoire du navigateur pleine."); }
+}
+function removePhoto(key){
+  try{ localStorage.removeItem(key); }catch(e){}
+}
+function resizeImage(file, maxSize, callback){
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      let w = img.width, h = img.height;
+      if(w > h){ if(w > maxSize){ h = Math.round(h * maxSize / w); w = maxSize; } }
+      else{ if(h > maxSize){ w = Math.round(w * maxSize / h); h = maxSize; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
 
 function renderCapsules(data){
   grid.innerHTML = '';
@@ -330,16 +433,23 @@ function renderCapsules(data){
     if(cap.statut === 'vintage') badgeHtml = '<span class="badge vintage">🕰️ Vintage</span>';
 
     const [a,b,mid] = paletteSet[hashStr(cap.marque) % paletteSet.length];
+    const key = capsuleKey(cap);
+    const photo = getPhoto(cap);
+
+    const circleContent = photo
+      ? `<img src="${photo}" alt="Photo de la capsule ${cap.marque}">`
+      : `<div class="cap-inner" style="background:${mid};">📷<br>Photo à venir</div>`;
 
     card.innerHTML = `
-      <div class="cap-circle" style="--cap-a:${a}; --cap-b:${b};">
-        <div class="cap-inner" style="--cap-mid:${mid}; background:${mid};">Photo à venir</div>
+      <div class="cap-circle" data-key="${key}" style="--cap-a:${a}; --cap-b:${b};" title="Cliquer pour ajouter/changer la photo">
+        ${circleContent}
       </div>
       <div class="brand">${cap.marque}</div>
       <div class="variant">${cap.variante}</div>
       <div class="details">🏭 ${cap.brasserie}</div>
       <div class="details">📍 ${cap.pays} | 📅 ${cap.annee}</div>
       ${badgeHtml}
+      ${photo ? `<button class="remove-photo" data-key="${key}">Supprimer la photo</button>` : ''}
     `;
     grid.appendChild(card);
   });
@@ -371,6 +481,31 @@ function filterAndSortCapsules(){
   statsLine.textContent = `${filtered.length} capsule${filtered.length>1?'s':''} affichée${filtered.length>1?'s':''} sur ${capsules.length} au total`;
   renderCapsules(filtered);
 }
+
+// Clic sur une capsule -> ouvre l'appareil photo / sélecteur de fichier
+grid.addEventListener('click', function(e){
+  const removeBtn = e.target.closest('.remove-photo');
+  if(removeBtn){
+    removePhoto(removeBtn.dataset.key);
+    filterAndSortCapsules();
+    return;
+  }
+  const circle = e.target.closest('.cap-circle');
+  if(circle){
+    currentEditKey = circle.dataset.key;
+    photoInput.click();
+  }
+});
+
+photoInput.addEventListener('change', function(){
+  const file = this.files[0];
+  this.value = '';
+  if(!file || !currentEditKey) return;
+  resizeImage(file, 400, function(dataUrl){
+    savePhoto(currentEditKey, dataUrl);
+    filterAndSortCapsules();
+  });
+});
 
 searchInput.addEventListener('input', filterAndSortCapsules);
 countryFilter.addEventListener('change', filterAndSortCapsules);
