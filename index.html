@@ -23,166 +23,105 @@
       var(--parchment);
     color:var(--malt);
     margin:0;
-    padding:24px 16px 60px;
+    padding:24px 16px 100px;
   }
-  header{ text-align:center; margin-bottom:28px; }
-  h1{
-    font-size:2.2em;
-    letter-spacing:0.5px;
-    margin:0 0 4px;
-    color:var(--malt);
-  }
+  header{ text-align:center; margin-bottom:20px; }
+  h1{ font-size:2.2em; letter-spacing:0.5px; margin:0 0 4px; color:var(--malt); }
   h1 .cap-icon{
-    display:inline-block;
-    width:0.8em; height:0.8em;
-    border-radius:50%;
-    background:
-      repeating-conic-gradient(var(--copper) 0deg 15deg, var(--copper-dark) 15deg 30deg);
-    vertical-align:middle;
-    margin-right:8px;
-    border:2px solid var(--malt);
+    display:inline-block; width:0.8em; height:0.8em; border-radius:50%;
+    background:repeating-conic-gradient(var(--copper) 0deg 15deg, var(--copper-dark) 15deg 30deg);
+    vertical-align:middle; margin-right:8px; border:2px solid var(--malt);
   }
-  .subtitle{
-    color:#6b5c46;
-    font-style:italic;
-    font-family:'Trebuchet MS', sans-serif;
-    font-size:0.95em;
+  .subtitle{ color:#6b5c46; font-style:italic; font-family:'Trebuchet MS', sans-serif; font-size:0.95em; }
+  .stats{ text-align:center; font-family:'Trebuchet MS', sans-serif; font-size:0.85em; color:var(--copper-dark); margin-bottom:6px; letter-spacing:1px; text-transform:uppercase; }
+  .hint{ text-align:center; font-family:'Trebuchet MS', sans-serif; font-size:0.8em; color:#8a7a5f; margin-bottom:18px; }
+  .controls{ max-width:960px; margin:0 auto 30px; display:flex; justify-content:center; flex-wrap:wrap; gap:12px; font-family:'Trebuchet MS', sans-serif; }
+  input[type="text"], input[type="number"], select{
+    padding:10px 14px; border:1px solid var(--line); border-radius:4px; font-size:15px; background:var(--card); color:var(--malt);
   }
-  .stats{
-    text-align:center;
-    font-family:'Trebuchet MS', sans-serif;
-    font-size:0.85em;
-    color:var(--copper-dark);
-    margin-bottom:6px;
-    letter-spacing:1px;
-    text-transform:uppercase;
+  input[type="text"]{ width:260px; }
+  input:focus, select:focus{ outline:2px solid var(--copper); outline-offset:1px; }
+  .btn{
+    font-family:'Trebuchet MS', sans-serif; border:none; border-radius:4px; padding:10px 16px;
+    background:var(--copper); color:white; font-size:14px; cursor:pointer; font-weight:bold;
   }
-  .hint{
-    text-align:center;
-    font-family:'Trebuchet MS', sans-serif;
-    font-size:0.8em;
-    color:#8a7a5f;
-    margin-bottom:22px;
-  }
-  .controls{
-    max-width:900px;
-    margin:0 auto 34px;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:12px;
-    font-family:'Trebuchet MS', sans-serif;
-  }
-  input[type="text"], select{
-    padding:10px 14px;
-    border:1px solid var(--line);
-    border-radius:4px;
-    font-size:15px;
-    background:var(--card);
-    color:var(--malt);
-  }
-  input[type="text"]{ width:280px; }
-  input[type="text"]:focus, select:focus{
-    outline:2px solid var(--copper);
-    outline-offset:1px;
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
-    gap:20px;
-    max-width:1280px;
-    margin:0 auto;
-  }
+  .btn:hover{ background:var(--copper-dark); }
+  .btn.secondary{ background:var(--hop); }
+  .btn.secondary:hover{ background:#476136; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:20px; max-width:1280px; margin:0 auto; }
   .card{
-    background:var(--card);
-    padding:18px 16px 20px;
-    border-radius:6px;
-    border:1px solid var(--line);
-    box-shadow:0 3px 8px rgba(43,29,18,0.08);
-    text-align:center;
-    transition:transform 0.15s, box-shadow 0.15s;
-  }
-  .card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 8px 16px rgba(43,29,18,0.15);
-  }
-  /* Capsule = bottle cap with crimped edge illusion */
-  .cap-circle{
-    width:100px; height:100px;
-    margin:0 auto 10px;
-    border-radius:50%;
+    background:var(--card); padding:18px 16px 16px; border-radius:6px; border:1px solid var(--line);
+    box-shadow:0 3px 8px rgba(43,29,18,0.08); text-align:center; transition:transform 0.15s, box-shadow 0.15s;
     position:relative;
-    background:
-      repeating-conic-gradient(
-        var(--cap-a, #d9cdb4) 0deg 9deg,
-        var(--cap-b, #c3b494) 9deg 18deg
-      );
-    box-shadow:
-      inset 0 0 0 8px var(--card),
-      inset 0 0 0 9px var(--line),
-      0 2px 4px rgba(0,0,0,0.15);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    overflow:hidden;
   }
-  .cap-circle:hover{ box-shadow:
-      inset 0 0 0 8px var(--card),
-      inset 0 0 0 9px var(--copper),
-      0 2px 4px rgba(0,0,0,0.15);
+  .card:hover{ transform:translateY(-4px); box-shadow:0 8px 16px rgba(43,29,18,0.15); }
+
+  .cap-circle{
+    width:100px; height:100px; margin:0 auto 10px; border-radius:50%; position:relative;
+    background:repeating-conic-gradient(var(--cap-a, #d9cdb4) 0deg 9deg, var(--cap-b, #c3b494) 9deg 18deg);
+    box-shadow:inset 0 0 0 8px var(--card), inset 0 0 0 9px var(--line), 0 2px 4px rgba(0,0,0,0.15);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; overflow:hidden;
   }
-  .cap-circle img{
-    width:84px; height:84px;
-    border-radius:50%;
-    object-fit:cover;
-  }
+  .cap-circle:hover{ box-shadow:inset 0 0 0 8px var(--card), inset 0 0 0 9px var(--copper), 0 2px 4px rgba(0,0,0,0.15); }
+  .cap-circle img{ width:84px; height:84px; border-radius:50%; object-fit:cover; }
   .cap-inner{
-    width:64px; height:64px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:0.62em;
-    line-height:1.2;
-    color:#7a6c52;
-    font-family:'Trebuchet MS', sans-serif;
-    text-align:center;
-    padding:4px;
+    width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:0.62em; line-height:1.2; color:#7a6c52; font-family:'Trebuchet MS', sans-serif; text-align:center; padding:4px;
   }
   .brand{ font-weight:bold; font-size:1.22em; color:var(--malt); }
   .variant{ font-size:0.88em; color:var(--copper-dark); font-weight:bold; margin:4px 0 8px; }
   .details{ font-size:0.85em; color:#6b5c46; margin-bottom:3px; font-family:'Trebuchet MS', sans-serif;}
-  .badge{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:12px;
-    font-size:0.75em;
-    margin-top:10px;
-    background:#e3d9c3;
-    color:#5c4a30;
-    font-family:'Trebuchet MS', sans-serif;
-  }
+  .badge{ display:inline-block; padding:4px 10px; border-radius:12px; font-size:0.75em; margin-top:10px; background:#e3d9c3; color:#5c4a30; font-family:'Trebuchet MS', sans-serif; }
   .rare{ background:#f0c239; color:#5c3d00; font-weight:bold; }
   .vintage{ background:var(--hop); color:white; }
-  .remove-photo{
-    display:block;
-    margin:8px auto 0;
-    background:none;
-    border:none;
-    font-family:'Trebuchet MS', sans-serif;
-    font-size:0.72em;
-    color:#a35c3a;
-    text-decoration:underline;
-    cursor:pointer;
-    padding:2px;
+  .custom-badge{ background:#c8dff0; color:#264a63; }
+
+  .remove-photo{ display:inline-block; margin:8px 4px 0; background:none; border:none; font-family:'Trebuchet MS', sans-serif; font-size:0.72em; color:#a35c3a; text-decoration:underline; cursor:pointer; padding:2px; }
+  .card-actions{ margin-top:6px; }
+  .icon-btn{
+    background:none; border:1px solid var(--line); border-radius:4px; cursor:pointer; font-size:0.85em;
+    padding:4px 8px; margin:2px; color:var(--malt); font-family:'Trebuchet MS', sans-serif;
   }
-  .empty{
-    text-align:center;
-    color:#8a7a5f;
-    font-family:'Trebuchet MS', sans-serif;
-    margin-top:40px;
+  .icon-btn:hover{ background:var(--line); }
+  .icon-btn.danger:hover{ background:#e8bcae; }
+
+  .empty{ text-align:center; color:#8a7a5f; font-family:'Trebuchet MS', sans-serif; margin-top:40px; }
+
+  .fab{
+    position:fixed; bottom:26px; right:26px; width:58px; height:58px; border-radius:50%;
+    background:var(--copper); color:white; font-size:28px; border:none; cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:50;
   }
+  .fab:hover{ background:var(--copper-dark); }
+
+  .overlay{
+    position:fixed; inset:0; background:rgba(43,29,18,0.55); display:flex; align-items:center; justify-content:center;
+    z-index:100; padding:16px;
+  }
+  .form-box{
+    background:var(--parchment); border:1px solid var(--line); border-radius:8px; padding:24px;
+    max-width:420px; width:100%; font-family:'Trebuchet MS', sans-serif; max-height:90vh; overflow-y:auto;
+  }
+  .form-box h2{ margin-top:0; font-family:Georgia, serif; color:var(--malt); }
+  .form-box label{ display:block; font-size:0.8em; color:#6b5c46; margin:10px 0 4px; }
+  .form-box input, .form-box select{ width:100%; }
+  .form-actions{ display:flex; justify-content:flex-end; gap:10px; margin-top:18px; }
+
+  .stats-panel{
+    max-width:900px; margin:0 auto 30px; background:var(--card); border:1px solid var(--line); border-radius:8px;
+    padding:20px 24px; font-family:'Trebuchet MS', sans-serif; display:none;
+  }
+  .stats-panel.open{ display:block; }
+  .stats-panel h3{ font-family:Georgia, serif; margin-top:0; color:var(--malt); }
+  .stat-row{ margin-bottom:14px; }
+  .stat-label{ display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px; }
+  .stat-bar{ background:#e4d9c0; border-radius:6px; overflow:hidden; height:14px; display:flex; }
+  .stat-bar-fill{ height:100%; }
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:14px; margin-bottom:20px; }
+  .stat-box{ background:var(--parchment); border-radius:6px; padding:12px; text-align:center; border:1px solid var(--line); }
+  .stat-box .num{ font-size:1.6em; font-weight:bold; color:var(--copper-dark); font-family:Georgia, serif; }
+  .stat-box .lbl{ font-size:0.75em; color:#6b5c46; text-transform:uppercase; letter-spacing:0.5px; }
 </style>
 </head>
 <body>
@@ -193,7 +132,7 @@
 </header>
 
 <div class="stats" id="statsLine"></div>
-<div class="hint">📷 Clique sur une capsule pour ajouter ou remplacer sa photo (prise directement avec l'appareil photo sur mobile)</div>
+<div class="hint">📷 Clique sur une capsule pour lui ajouter une photo · ✏️ pour modifier · 🗑️ pour supprimer</div>
 
 <div class="controls">
   <input type="text" id="searchInput" placeholder="Rechercher marque, brasserie, variante...">
@@ -213,20 +152,50 @@
     <option value="za">Trier : De Z à A</option>
     <option value="pays">Trier : Par pays</option>
   </select>
+  <button class="btn secondary" id="toggleStats">📊 Statistiques</button>
 </div>
+
+<div class="stats-panel" id="statsPanel"></div>
 
 <div class="grid" id="capsuleGrid"></div>
 <div class="empty" id="emptyMsg" style="display:none;">Aucune capsule ne correspond à ta recherche.</div>
 
+<button class="fab" id="addBtn" title="Ajouter une bière">+</button>
+
 <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none">
+
+<div class="overlay" id="formOverlay" style="display:none;">
+  <div class="form-box">
+    <h2 id="formTitle">Ajouter une bière</h2>
+    <label>Marque *</label>
+    <input type="text" id="fMarque">
+    <label>Variante</label>
+    <input type="text" id="fVariante">
+    <label>Brasserie *</label>
+    <input type="text" id="fBrasserie">
+    <label>Pays</label>
+    <select id="fPays"><option>France</option><option>Belgique</option></select>
+    <label>Année</label>
+    <input type="text" id="fAnnee" placeholder="Récente, 2020, Années 90...">
+    <label>Statut</label>
+    <select id="fStatut">
+      <option value="standard">Standard</option>
+      <option value="rare">Rare</option>
+      <option value="vintage">Vintage</option>
+    </select>
+    <div class="form-actions">
+      <button class="icon-btn" id="formCancel">Annuler</button>
+      <button class="btn" id="formSave">Enregistrer</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // =====================================================================
-// BASE DE DONNÉES DES CAPSULES
-// Copie-colle une ligne pour ajouter une nouvelle capsule.
+// BASE DE DONNÉES DE RÉFÉRENCE (capsules intégrées)
 // statut : "standard" | "rare" | "vintage"
 // =====================================================================
-const capsules = [
+const builtinCapsules = [
 
 /* ============================= BELGIQUE ============================= */
 { marque:"Orval", variante:"Classique", brasserie:"Abbaye Notre-Dame d'Orval", pays:"Belgique", annee:"Récente", statut:"standard" },
@@ -372,10 +341,17 @@ const countryFilter = document.getElementById('countryFilter');
 const statusFilter = document.getElementById('statusFilter');
 const sortFilter = document.getElementById('sortFilter');
 const photoInput = document.getElementById('photoInput');
+const addBtn = document.getElementById('addBtn');
+const formOverlay = document.getElementById('formOverlay');
+const formTitle = document.getElementById('formTitle');
+const formCancel = document.getElementById('formCancel');
+const formSave = document.getElementById('formSave');
+const toggleStatsBtn = document.getElementById('toggleStats');
+const statsPanel = document.getElementById('statsPanel');
 
-let currentEditKey = null;
+let currentPhotoKey = null;
+let editingId = null;
 
-// Palette de teintes pour varier l'aspect des capsules selon la marque
 const paletteSet = [
   ['#d9cdb4','#c3b494','#e8dcc4'],
   ['#d8b7a0','#c29a7e','#ecd9c8'],
@@ -384,43 +360,42 @@ const paletteSet = [
   ['#e0c78f','#c9a856','#f2e4bd'],
   ['#c3b8a8','#a99c86','#e6ded2']
 ];
-function hashStr(s){
-  let h = 0;
-  for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) >>> 0; }
-  return h;
+function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))>>>0; } return h; }
+
+// ---------- Stockage local (localStorage) ----------
+function loadJSON(key, fallback){
+  try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+  catch(e){ return fallback; }
 }
-function capsuleKey(cap){
-  return 'capsulePhoto::' + cap.marque + '::' + cap.variante;
+function saveJSON(key, value){
+  try{ localStorage.setItem(key, JSON.stringify(value)); return true; }
+  catch(e){ alert("Impossible d'enregistrer : mémoire du navigateur pleine."); return false; }
 }
-function getPhoto(cap){
-  try{ return localStorage.getItem(capsuleKey(cap)); }
-  catch(e){ return null; }
-}
-function savePhoto(key, dataUrl){
-  try{ localStorage.setItem(key, dataUrl); }
-  catch(e){ alert("Impossible d'enregistrer la photo : mémoire du navigateur pleine."); }
-}
-function removePhoto(key){
-  try{ localStorage.removeItem(key); }catch(e){}
-}
-function resizeImage(file, maxSize, callback){
-  const reader = new FileReader();
-  reader.onload = function(e){
-    const img = new Image();
-    img.onload = function(){
-      let w = img.width, h = img.height;
-      if(w > h){ if(w > maxSize){ h = Math.round(h * maxSize / w); w = maxSize; } }
-      else{ if(h > maxSize){ w = Math.round(w * maxSize / h); h = maxSize; } }
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      callback(canvas.toDataURL('image/jpeg', 0.82));
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
+function getUserCapsules(){ return loadJSON('userCapsules', []); }
+function setUserCapsules(arr){ saveJSON('userCapsules', arr); }
+function getHidden(){ return loadJSON('hiddenCapsules', []); }
+function setHidden(arr){ saveJSON('hiddenCapsules', arr); }
+function getOverrides(){ return loadJSON('overrides', {}); }
+function setOverrides(obj){ saveJSON('overrides', obj); }
+
+function getPhoto(id){ try{ return localStorage.getItem('capsulePhoto::'+id); }catch(e){ return null; } }
+function savePhoto(id, dataUrl){ saveJSON('__ping', 1); try{ localStorage.setItem('capsulePhoto::'+id, dataUrl); }catch(e){ alert("Impossible d'enregistrer la photo : mémoire pleine."); } }
+function removePhotoById(id){ try{ localStorage.removeItem('capsulePhoto::'+id); }catch(e){} }
+
+function getAllCapsules(){
+  const hidden = getHidden();
+  const overrides = getOverrides();
+  const builtins = builtinCapsules.map((cap,i)=>{
+    const id = 'b'+i;
+    const merged = Object.assign({}, cap, overrides[id]||{});
+    merged.id = id; merged.builtin = true;
+    return merged;
+  }).filter(c => hidden.indexOf(c.id) === -1);
+  const customs = getUserCapsules().map(c => Object.assign({}, c, {builtin:false}));
+  return builtins.concat(customs);
 }
 
+// ---------- Rendu ----------
 function renderCapsules(data){
   grid.innerHTML = '';
   emptyMsg.style.display = data.length ? 'none' : 'block';
@@ -429,43 +404,47 @@ function renderCapsules(data){
     card.className = 'card';
 
     let badgeHtml = '';
-    if(cap.statut === 'rare') badgeHtml = '<span class="badge rare">⭐ Rare</span>';
-    if(cap.statut === 'vintage') badgeHtml = '<span class="badge vintage">🕰️ Vintage</span>';
+    if(cap.statut === 'rare') badgeHtml += '<span class="badge rare">⭐ Rare</span> ';
+    if(cap.statut === 'vintage') badgeHtml += '<span class="badge vintage">🕰️ Vintage</span> ';
+    if(!cap.builtin) badgeHtml += '<span class="badge custom-badge">✨ Ajoutée par moi</span>';
 
     const [a,b,mid] = paletteSet[hashStr(cap.marque) % paletteSet.length];
-    const key = capsuleKey(cap);
-    const photo = getPhoto(cap);
-
+    const photo = getPhoto(cap.id);
     const circleContent = photo
       ? `<img src="${photo}" alt="Photo de la capsule ${cap.marque}">`
       : `<div class="cap-inner" style="background:${mid};">📷<br>Photo à venir</div>`;
 
     card.innerHTML = `
-      <div class="cap-circle" data-key="${key}" style="--cap-a:${a}; --cap-b:${b};" title="Cliquer pour ajouter/changer la photo">
+      <div class="cap-circle" data-id="${cap.id}" style="--cap-a:${a}; --cap-b:${b};" title="Cliquer pour ajouter/changer la photo">
         ${circleContent}
       </div>
       <div class="brand">${cap.marque}</div>
-      <div class="variant">${cap.variante}</div>
+      <div class="variant">${cap.variante || ''}</div>
       <div class="details">🏭 ${cap.brasserie}</div>
       <div class="details">📍 ${cap.pays} | 📅 ${cap.annee}</div>
       ${badgeHtml}
-      ${photo ? `<button class="remove-photo" data-key="${key}">Supprimer la photo</button>` : ''}
+      <div class="card-actions">
+        ${photo ? `<button class="icon-btn remove-photo-btn" data-id="${cap.id}">Suppr. photo</button>` : ''}
+        <button class="icon-btn edit-btn" data-id="${cap.id}">✏️ Modifier</button>
+        <button class="icon-btn danger delete-btn" data-id="${cap.id}">🗑️ Supprimer</button>
+      </div>
     `;
     grid.appendChild(card);
   });
 }
 
 function filterAndSortCapsules(){
+  const all = getAllCapsules();
   const searchTerm = searchInput.value.toLowerCase();
   const country = countryFilter.value;
   const status = statusFilter.value;
   const sortOrder = sortFilter.value;
 
-  let filtered = capsules.filter(cap => {
+  let filtered = all.filter(cap => {
     const matchesSearch =
       cap.marque.toLowerCase().includes(searchTerm) ||
       cap.brasserie.toLowerCase().includes(searchTerm) ||
-      cap.variante.toLowerCase().includes(searchTerm);
+      (cap.variante||'').toLowerCase().includes(searchTerm);
     const matchesCountry = country === 'all' || cap.pays === country;
     const matchesStatus = status === 'all' || cap.statut === status;
     return matchesSearch && matchesCountry && matchesStatus;
@@ -478,33 +457,167 @@ function filterAndSortCapsules(){
     return 0;
   });
 
-  statsLine.textContent = `${filtered.length} capsule${filtered.length>1?'s':''} affichée${filtered.length>1?'s':''} sur ${capsules.length} au total`;
+  statsLine.textContent = `${filtered.length} capsule${filtered.length>1?'s':''} affichée${filtered.length>1?'s':''} sur ${all.length} au total`;
   renderCapsules(filtered);
+  if(statsPanel.classList.contains('open')) renderStats(all);
 }
 
-// Clic sur une capsule -> ouvre l'appareil photo / sélecteur de fichier
+// ---------- Photos ----------
+function resizeImage(file, maxSize, callback){
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      let w = img.width, h = img.height;
+      if(w > h){ if(w > maxSize){ h = Math.round(h*maxSize/w); w = maxSize; } }
+      else{ if(h > maxSize){ w = Math.round(w*maxSize/h); h = maxSize; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      callback(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 grid.addEventListener('click', function(e){
-  const removeBtn = e.target.closest('.remove-photo');
-  if(removeBtn){
-    removePhoto(removeBtn.dataset.key);
-    filterAndSortCapsules();
-    return;
-  }
+  const removeBtn = e.target.closest('.remove-photo-btn');
+  if(removeBtn){ removePhotoById(removeBtn.dataset.id); filterAndSortCapsules(); return; }
+
+  const editBtn = e.target.closest('.edit-btn');
+  if(editBtn){ openEditForm(editBtn.dataset.id); return; }
+
+  const deleteBtn = e.target.closest('.delete-btn');
+  if(deleteBtn){ deleteCapsule(deleteBtn.dataset.id); return; }
+
   const circle = e.target.closest('.cap-circle');
-  if(circle){
-    currentEditKey = circle.dataset.key;
-    photoInput.click();
-  }
+  if(circle){ currentPhotoKey = circle.dataset.id; photoInput.click(); }
 });
 
 photoInput.addEventListener('change', function(){
   const file = this.files[0];
   this.value = '';
-  if(!file || !currentEditKey) return;
+  if(!file || !currentPhotoKey) return;
   resizeImage(file, 400, function(dataUrl){
-    savePhoto(currentEditKey, dataUrl);
+    savePhoto(currentPhotoKey, dataUrl);
     filterAndSortCapsules();
   });
+});
+
+// ---------- Formulaire d'ajout / modification ----------
+const fMarque = document.getElementById('fMarque');
+const fVariante = document.getElementById('fVariante');
+const fBrasserie = document.getElementById('fBrasserie');
+const fPays = document.getElementById('fPays');
+const fAnnee = document.getElementById('fAnnee');
+const fStatut = document.getElementById('fStatut');
+
+function openAddForm(){
+  editingId = null;
+  formTitle.textContent = 'Ajouter une bière';
+  fMarque.value=''; fVariante.value=''; fBrasserie.value='';
+  fPays.value='France'; fAnnee.value='Récente'; fStatut.value='standard';
+  formOverlay.style.display = 'flex';
+}
+function openEditForm(id){
+  const all = getAllCapsules();
+  const cap = all.find(c => c.id === id);
+  if(!cap) return;
+  editingId = id;
+  formTitle.textContent = 'Modifier la bière';
+  fMarque.value = cap.marque; fVariante.value = cap.variante || '';
+  fBrasserie.value = cap.brasserie; fPays.value = cap.pays;
+  fAnnee.value = cap.annee; fStatut.value = cap.statut;
+  formOverlay.style.display = 'flex';
+}
+function closeForm(){ formOverlay.style.display = 'none'; editingId = null; }
+
+addBtn.addEventListener('click', openAddForm);
+formCancel.addEventListener('click', closeForm);
+formOverlay.addEventListener('click', function(e){ if(e.target === formOverlay) closeForm(); });
+
+formSave.addEventListener('click', function(){
+  const marque = fMarque.value.trim();
+  const brasserie = fBrasserie.value.trim();
+  if(!marque || !brasserie){ alert('La marque et la brasserie sont obligatoires.'); return; }
+  const data = {
+    marque, variante: fVariante.value.trim(), brasserie,
+    pays: fPays.value, annee: fAnnee.value.trim() || 'Récente', statut: fStatut.value
+  };
+
+  if(editingId && editingId.startsWith('b')){
+    // Modification d'une capsule intégrée -> on stocke un "override"
+    const overrides = getOverrides();
+    overrides[editingId] = data;
+    setOverrides(overrides);
+  } else if(editingId){
+    // Modification d'une capsule ajoutée par l'utilisateur
+    const customs = getUserCapsules();
+    const idx = customs.findIndex(c => c.id === editingId);
+    if(idx > -1){ customs[idx] = Object.assign({id: editingId}, data); setUserCapsules(customs); }
+  } else {
+    // Nouvelle capsule
+    const customs = getUserCapsules();
+    const id = 'c' + Date.now() + Math.floor(Math.random()*1000);
+    customs.push(Object.assign({id}, data));
+    setUserCapsules(customs);
+  }
+  closeForm();
+  filterAndSortCapsules();
+});
+
+function deleteCapsule(id){
+  if(!confirm('Supprimer définitivement cette capsule du catalogue ?')) return;
+  if(id.startsWith('b')){
+    const hidden = getHidden();
+    if(hidden.indexOf(id) === -1){ hidden.push(id); setHidden(hidden); }
+  } else {
+    const customs = getUserCapsules().filter(c => c.id !== id);
+    setUserCapsules(customs);
+  }
+  removePhotoById(id);
+  filterAndSortCapsules();
+}
+
+// ---------- Statistiques ----------
+function renderStats(all){
+  const total = all.length;
+  const withPhoto = all.filter(c => !!getPhoto(c.id)).length;
+  const pct = total ? Math.round(withPhoto/total*100) : 0;
+  const france = all.filter(c => c.pays === 'France').length;
+  const belgique = all.filter(c => c.pays === 'Belgique').length;
+  const standard = all.filter(c => c.statut === 'standard').length;
+  const rare = all.filter(c => c.statut === 'rare').length;
+  const vintage = all.filter(c => c.statut === 'vintage').length;
+  const customCount = all.filter(c => !c.builtin).length;
+
+  function bar(label, value, total, color){
+    const p = total ? Math.round(value/total*100) : 0;
+    return `<div class="stat-row">
+      <div class="stat-label"><span>${label}</span><span>${value} (${p}%)</span></div>
+      <div class="stat-bar"><div class="stat-bar-fill" style="width:${p}%; background:${color};"></div></div>
+    </div>`;
+  }
+
+  statsPanel.innerHTML = `
+    <h3>📊 Statistiques de la collection</h3>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="num">${total}</div><div class="lbl">Capsules au catalogue</div></div>
+      <div class="stat-box"><div class="num">${withPhoto}</div><div class="lbl">Photographiées (${pct}%)</div></div>
+      <div class="stat-box"><div class="num">${customCount}</div><div class="lbl">Ajoutées par toi</div></div>
+    </div>
+    ${bar('🇫🇷 France', france, total, 'var(--copper)')}
+    ${bar('🇧🇪 Belgique', belgique, total, 'var(--hop)')}
+    ${bar('Standard', standard, total, '#a99c86')}
+    ${bar('⭐ Rare', rare, total, '#f0c239')}
+    ${bar('🕰️ Vintage', vintage, total, 'var(--hop)')}
+  `;
+}
+
+toggleStatsBtn.addEventListener('click', function(){
+  statsPanel.classList.toggle('open');
+  if(statsPanel.classList.contains('open')) renderStats(getAllCapsules());
 });
 
 searchInput.addEventListener('input', filterAndSortCapsules);
