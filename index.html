@@ -15,12 +15,20 @@
         h1 { 
             text-align: center; 
             color: #8b4513; 
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
         }
         .controls { 
             text-align: center; 
             margin-bottom: 30px; 
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
         }
         input[type="text"], select { 
@@ -32,7 +40,7 @@
         input[type="text"] { width: 300px; }
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
             gap: 20px; 
             max-width: 1200px; 
             margin: 0 auto; 
@@ -60,14 +68,15 @@
             color: #666;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
-        .brand { font-weight: bold; font-size: 1.2em; margin-bottom: 5px; color: #222; }
-        .details { font-size: 0.9em; color: #666; margin-bottom: 3px; }
+        .brand { font-weight: bold; font-size: 1.3em; color: #222; }
+        .variant { font-size: 0.9em; color: #d35400; font-weight: bold; margin-bottom: 8px; }
+        .details { font-size: 0.9em; color: #666; margin-bottom: 4px; }
         .badge { 
             display: inline-block; 
-            padding: 3px 8px; 
+            padding: 4px 8px; 
             border-radius: 12px; 
             font-size: 0.8em; 
-            margin-top: 8px; 
+            margin-top: 10px; 
             background: #eee; 
         }
         .rare { background: #ffd700; color: #855c00; font-weight: bold; }
@@ -77,31 +86,53 @@
 <body>
 
     <h1>🍺 Mes Archives de Capsules</h1>
+    <div class="subtitle">Catalogue France & Belgique</div>
     
     <div class="controls">
-        <input type="text" id="searchInput" placeholder="Rechercher une marque...">
+        <input type="text" id="searchInput" placeholder="Rechercher marque, brasserie, variante...">
         <select id="countryFilter">
             <option value="all">Tous les pays</option>
             <option value="France">France</option>
             <option value="Belgique">Belgique</option>
+        </select>
+        <select id="sortFilter">
+            <option value="az">Trier : De A à Z</option>
+            <option value="za">Trier : De Z à A</option>
         </select>
     </div>
 
     <div class="grid" id="capsuleGrid"></div>
 
     <script>
-        // C'est ici que tu ajoutes toutes tes capsules
+        // BASE DE DONNÉES DES CAPSULES
+        // Copie-colle une ligne pour ajouter une nouvelle capsule
         const capsules = [
-            { marque: "Orval", brasserie: "Abbaye d'Orval", pays: "Belgique", annee: "Années 80", statut: "vintage" },
-            { marque: "Chimay Bleue", brasserie: "Abbaye de Scourmont", pays: "Belgique", annee: "Récente", statut: "standard" },
-            { marque: "Meteor Pils", brasserie: "Brasserie Meteor", pays: "France", annee: "Récente", statut: "standard" },
-            { marque: "Westvleteren 12", brasserie: "Abbaye de Saint-Sixte", pays: "Belgique", annee: "2010", statut: "rare" },
-            { marque: "3 Monts", brasserie: "Brasserie de Saint-Sylvestre", pays: "France", annee: "Récente", statut: "standard" }
+            /* --- BELGIQUE --- */
+            { marque: "Orval", variante: "Classique", brasserie: "Abbaye d'Orval", pays: "Belgique", annee: "Récente", statut: "standard" },
+            { marque: "Orval", variante: "Ancien logo (vintage)", brasserie: "Abbaye d'Orval", pays: "Belgique", annee: "Années 80", statut: "vintage" },
+            { marque: "Chimay Bleue", variante: "Millésimée 2020", brasserie: "Abbaye de Scourmont", pays: "Belgique", annee: "2020", statut: "standard" },
+            { marque: "Chimay Rouge", variante: "Texte rouge sur blanc", brasserie: "Abbaye de Scourmont", pays: "Belgique", annee: "Récente", statut: "standard" },
+            { marque: "Westvleteren 12", variante: "Bouchon jaune", brasserie: "Abbaye de Saint-Sixte", pays: "Belgique", annee: "2010", statut: "rare" },
+            { marque: "Kwak", variante: "Verre emblématique", brasserie: "Bosteels", pays: "Belgique", annee: "Récente", statut: "standard" },
+            { marque: "Chouffe", variante: "Lutin avec bière", brasserie: "Brasserie d'Achouffe", pays: "Belgique", annee: "Récente", statut: "standard" },
+            { marque: "Chouffe", variante: "Édition N'Ice (Hiver)", brasserie: "Brasserie d'Achouffe", pays: "Belgique", annee: "2022", statut: "rare" },
+            { marque: "Delirium Tremens", variante: "Éléphant rose classique", brasserie: "Huyghe", pays: "Belgique", annee: "Récente", statut: "standard" },
+            { marque: "Stella Artois", variante: "Édition Limitée Noël", brasserie: "AB InBev", pays: "Belgique", annee: "2018", statut: "standard" },
+
+            /* --- FRANCE --- */
+            { marque: "Meteor Pils", variante: "Vert sapin", brasserie: "Brasserie Meteor", pays: "France", annee: "Récente", statut: "standard" },
+            { marque: "Meteor", variante: "Édition 375 ans", brasserie: "Brasserie Meteor", pays: "France", annee: "2015", statut: "rare" },
+            { marque: "3 Monts", variante: "Classique Dorée", brasserie: "Brasserie de Saint-Sylvestre", pays: "France", annee: "Récente", statut: "standard" },
+            { marque: "Goudale", variante: "Personnage historique", brasserie: "Brasserie Goudale", pays: "France", annee: "Récente", statut: "standard" },
+            { marque: "Pelforth Brune", variante: "Pélican Vintage", brasserie: "Heineken France", pays: "France", annee: "Années 90", statut: "vintage" },
+            { marque: "Fischer", variante: "Tradition Bonhomme", brasserie: "Heineken France", pays: "France", annee: "Récente", statut: "standard" },
+            { marque: "Pietra", variante: "Châtaigne Corse", brasserie: "Brasserie Pietra", pays: "France", annee: "Récente", statut: "standard" }
         ];
 
         const grid = document.getElementById('capsuleGrid');
         const searchInput = document.getElementById('searchInput');
         const countryFilter = document.getElementById('countryFilter');
+        const sortFilter = document.getElementById('sortFilter');
 
         function renderCapsules(data) {
             grid.innerHTML = '';
@@ -116,7 +147,8 @@
                 card.innerHTML = `
                     <div class="cap-circle">Photo à venir</div>
                     <div class="brand">${cap.marque}</div>
-                    <div class="details">${cap.brasserie}</div>
+                    <div class="variant">Variante : ${cap.variante}</div>
+                    <div class="details">🏭 ${cap.brasserie}</div>
                     <div class="details">📍 ${cap.pays} | 📅 ${cap.annee}</div>
                     ${badgeHtml}
                 `;
@@ -124,24 +156,37 @@
             });
         }
 
-        function filterCapsules() {
+        function filterAndSortCapsules() {
             const searchTerm = searchInput.value.toLowerCase();
             const country = countryFilter.value;
+            const sortOrder = sortFilter.value;
 
-            const filtered = capsules.filter(cap => {
-                const matchesSearch = cap.marque.toLowerCase().includes(searchTerm) || cap.brasserie.toLowerCase().includes(searchTerm);
+            // 1. Filtrer
+            let filtered = capsules.filter(cap => {
+                const matchesSearch = 
+                    cap.marque.toLowerCase().includes(searchTerm) || 
+                    cap.brasserie.toLowerCase().includes(searchTerm) ||
+                    cap.variante.toLowerCase().includes(searchTerm);
                 const matchesCountry = country === 'all' || cap.pays === country;
                 return matchesSearch && matchesCountry;
+            });
+
+            // 2. Trier (Alphabétique)
+            filtered.sort((a, b) => {
+                if (sortOrder === 'az') return a.marque.localeCompare(b.marque);
+                if (sortOrder === 'za') return b.marque.localeCompare(a.marque);
             });
 
             renderCapsules(filtered);
         }
 
-        searchInput.addEventListener('input', filterCapsules);
-        countryFilter.addEventListener('change', filterCapsules);
+        // Écouteurs d'événements
+        searchInput.addEventListener('input', filterAndSortCapsules);
+        countryFilter.addEventListener('change', filterAndSortCapsules);
+        sortFilter.addEventListener('change', filterAndSortCapsules);
 
         // Affichage initial
-        renderCapsules(capsules);
+        filterAndSortCapsules();
     </script>
 </body>
 </html>
